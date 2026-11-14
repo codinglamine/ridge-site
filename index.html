@@ -174,6 +174,7 @@ button { font: inherit; color: inherit; }
 .btn.ink { background: var(--ink); color: var(--paper); }
 .btn.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
 .btn small { font: 600 11.5px var(--mono); opacity: .55; }
+.betalink { font: 600 14px var(--body); color: var(--ink); text-underline-offset: 4px; }
 .cue { position: absolute; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 22px); margin-left: -30px; width: 60px; display: grid; justify-items: center; gap: 10px; animation: up 1s 1.9s var(--ease) backwards; }
 @media (max-width: 900px), (max-height: 640px) { .cue { display: none; } }
 .topbar { transition: opacity .45s var(--ease), transform .45s var(--ease); }
@@ -281,6 +282,33 @@ code { font: 500 13.5px var(--mono); background: var(--paper); border-radius: 6p
 .qa details[open] summary i::before, .qa details[open] summary i::after { background: var(--paper); }
 .qa details p { margin: 0 0 22px; color: var(--mute); max-width: 66ch; }
 #qempty { color: var(--mute); margin-top: 16px; }
+/* beta download: a black card, the notch's own material */
+.beta { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(20px, 4vw, 56px); margin-top: 40px; background: var(--nf); color: var(--nfg); border-radius: 32px; padding: clamp(24px, 4vw, 44px); transition: background .7s var(--ease); }
+.beta > * { min-width: 0; }
+@media (max-width: 860px) { .beta { grid-template-columns: 1fr; } }
+.beta .bl { margin: 0; font: 600 clamp(19px, 2vw, 24px)/1.3 var(--body); letter-spacing: -.01em; max-width: 30ch; }
+.spec { margin: 22px 0 0; display: grid; gap: 0; }
+.spec div { display: flex; justify-content: space-between; gap: 16px; padding: 11px 0; border-top: 1px solid var(--nc); }
+.spec dt { font: 600 11.5px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--nm); }
+.spec dd { margin: 0; font-weight: 500; text-align: right; }
+.beta .bn { margin: 18px 0 0; color: var(--nm); font-size: 14.5px; max-width: 52ch; }
+.beta .bn b { color: var(--nfg); font-weight: 600; }
+.bf { display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+.bf label { font: 600 11.5px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--nm); }
+.brow { display: flex; gap: 8px; background: var(--nc); border-radius: 18px; padding: 6px; transition: box-shadow .2s; }
+.brow:focus-within { box-shadow: 0 0 0 2px var(--nfg); }
+.brow input { flex: 1; min-width: 0; background: none; border: 0; outline: 0; color: var(--nfg); font: 500 17px var(--body); padding: 0 12px; }
+.brow input::placeholder { color: var(--nm); }
+.bf .go, .bf .golink { height: 48px; padding: 0 22px; border: 0; border-radius: 13px; background: var(--nfg); color: var(--nf); font: 600 15px var(--body); cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; text-decoration: none; transition: transform .3s var(--spring); }
+.bf .go:hover, .bf .golink:hover { transform: scale(1.04); }
+.bf .go[disabled] { opacity: .5; cursor: default; transform: none; }
+.bs { margin: 2px 0 0; min-height: 1.5em; font-size: 14.5px; color: var(--nm); }
+.bs.bad { color: #FF6B60; }
+.bs.ok { color: var(--nfg); }
+.bs a { color: var(--nfg); }
+.bf.shake .brow { animation: nope .4s; }
+@keyframes nope { 20%, 60% { transform: translateX(-6px) } 40%, 80% { transform: translateX(6px) } }
+
 /* comments + feedback */
 .talk { display: grid; grid-template-columns: 1.35fr 1fr; gap: 14px; margin-top: 44px; align-items: start; }
 @media (max-width: 900px) { .talk { grid-template-columns: 1fr; } }
@@ -399,6 +427,7 @@ code { font: 500 13.5px var(--mono); background: var(--paper); border-radius: 6p
           <div class="hside">
             <p>Ridge turns the top of your Windows screen into a living notch. Music, messages, timers and Claude, one hover away.</p>
             <div class="ctas"><a class="btn ink" href="#price">Try free for 7 days <small>THEN $12</small></a><button class="btn ghost" type="button" data-spot>Try Spotlight <span class="kbd">/</span></button></div>
+            <a class="betalink" href="#beta">Beta tester? Download Ridge 1.1.0 beta ›</a>
           </div>
         </div>
       </div>
@@ -461,6 +490,31 @@ code { font: 500 13.5px var(--mono); background: var(--paper); border-radius: 6p
         <button class="store" type="button" data-store="paddle"><span><b>Paddle</b><span class="sd">Card, PayPal, local methods · taxes handled</span></span><span class="pl" data-pill="paddle">AT LAUNCH</span></button>
       </div>
       <p class="note">Your licence key arrives by email. Paste it in Ridge › Settings and you're done.</p>
+    </div>
+  </div></div></section>
+
+  <!-- beta: password-gated download (the password is checked on the server) -->
+  <section class="ch flow gut" data-ch="beta" data-name="Beta" id="beta" aria-labelledby="cb"><div class="chin"><div class="wrap">
+    <p class="label">Beta · Ridge 1.1.0</p>
+    <h2 id="cb">Try the beta today.</h2>
+    <div class="beta">
+      <div class="bi">
+        <p class="bl">The newest Ridge, before everyone else. For testers with the beta password.</p>
+        <dl class="spec">
+          <div><dt>Version</dt><dd>1.1.0 beta</dd></div>
+          <div><dt>Size</dt><dd>108 MB installer</dd></div>
+          <div><dt>Needs</dt><dd>Windows 10 or 11, 64-bit</dd></div>
+        </dl>
+        <p class="bn">The beta isn't signed yet, so Windows may show “Windows protected your PC”. Click <b>More info</b>, then <b>Run anyway</b>. Found a bug? Tell us in Feedback below.</p>
+      </div>
+      <form class="bf" id="betaForm" novalidate>
+        <label for="betaPass">Beta password</label>
+        <div class="brow">
+          <input id="betaPass" name="password" type="password" autocomplete="off" spellcheck="false" required placeholder="Enter the password">
+          <button class="go" id="betaGo" type="submit">Download</button>
+        </div>
+        <p class="bs" id="betaStatus" role="status" aria-live="polite"></p>
+      </form>
     </div>
   </div></div></section>
 
@@ -590,8 +644,8 @@ code { font: 500 13.5px var(--mono); background: var(--paper); border-radius: 6p
     price: { W: 520, D: 340, br: 38 },
     live: { W: 640, D: 368, br: 38 }
   };
-  CH.help = CH.talk = CH.peek = CH.idle;          // plain sections and timer peeks rest as the pill
-  var PANEL = { help: "idle", talk: "idle", peek: "idle" };
+  CH.help = CH.talk = CH.beta = CH.peek = CH.idle;   // plain sections and timer peeks rest as the pill
+  var PANEL = { help: "idle", talk: "idle", beta: "idle", peek: "idle" };
   Object.keys(panels).forEach(function (n) { if (n !== "live") panels[n].setAttribute("aria-hidden", "true"); });
   var NAMES = { hero: "The line", idle: "The line" };
   chapters.forEach(function (c) { NAMES[c.getAttribute("data-ch")] = c.getAttribute("data-name"); });
@@ -744,7 +798,7 @@ code { font: 500 13.5px var(--mono); background: var(--paper); border-radius: 6p
       cur = act;
       chapters.forEach(function (c) { c.classList.toggle("on", c.getAttribute("data-ch") === act); });
       topbar.classList.toggle("away", act !== "hero" && act !== "idle");
-      indexEl.classList.toggle("away", act === "hero" || act === "help" || act === "talk");
+      indexEl.classList.toggle("away", act === "hero" || act === "help" || act === "talk" || act === "beta");
       var idx = act === "hero" || act === "idle" ? 0 : ORDER.indexOf(act);
       ixn.textContent = ("0" + (idx + 1)).slice(-2);
       ixl.textContent = (NAMES[act] || "").toUpperCase();
@@ -753,7 +807,7 @@ code { font: 500 13.5px var(--mono); background: var(--paper); border-radius: 6p
 
     /* the content layer */
     var showName = sa === "hero" ? (p > .97 ? "idle" : "") : sa === "end" ? "" : (PANEL[sa] || sa);
-    if (sa === "peek" || sa === "help" || sa === "talk") showName = "idle";
+    if (PANEL[sa]) showName = "idle";
     var layerKey = showName ? showName + "|" + vw + "|" + vh : "";
     if (layerKey && layerKey !== lastLayer) {
       var L = chTarget(showName);
