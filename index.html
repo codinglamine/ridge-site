@@ -1085,5 +1085,32 @@ code { font: 500 13.5px var(--mono); background: var(--paper); border-radius: 6p
 })();
 </script>
 
+<script>
+/* beta download: the server checks the password and hands back the installer's address */
+(function () {
+  var form = document.getElementById("betaForm");
+  if (!form) return;
+  var pass = document.getElementById("betaPass"), go = document.getElementById("betaGo"), st = document.getElementById("betaStatus");
+  function say(msg, cls) { st.textContent = msg; st.className = "bs" + (cls ? " " + cls : ""); }
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var pw = pass.value.trim();
+    if (!pw) { say("Enter the beta password.", "bad"); pass.focus(); return; }
+    go.disabled = true; say("Checking…");
+    fetch("/api/beta", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: pw }) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (!res.ok || !res.j.url) { say(res.j.error || "Something went wrong. Try again.", "bad"); return; }
+        say("Downloading " + (res.j.file || "Ridge") + "… if nothing happens, click Download again.", "ok");
+        var a = document.createElement("a");
+        a.href = res.j.url; a.download = res.j.file || "";
+        document.body.appendChild(a); a.click(); a.remove();
+        pass.value = "";
+      })
+      .catch(function () { say("Couldn't reach the server. Check your connection.", "bad"); })
+      .then(function () { go.disabled = false; });
+  });
+})();
+</script>
 </body>
 </html>
